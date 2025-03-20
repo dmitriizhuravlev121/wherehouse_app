@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fetch(`https://your-backend-url/${action}`, {
+        fetch(`https://wherehouse-backend-fplp.onrender.com/${action}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
