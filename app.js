@@ -9,14 +9,25 @@ let cameraStream;
 
 // Запускаем камеру
 async function startCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Ваш браузер не поддерживает доступ к камере.");
+        return;
+    }
+
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
         video.srcObject = stream;
         cameraStream = stream;
         video.play();
     } catch (error) {
-        alert("Не удалось получить доступ к камере.");
-        console.error("Ошибка доступа к камере:", error);
+        if (error.name === "NotAllowedError") {
+            alert("Доступ к камере запрещен. Проверьте настройки браузера.");
+        } else if (error.name === "NotFoundError") {
+            alert("Камера не найдена. Убедитесь, что устройство имеет камеру.");
+        } else {
+            alert("Не удалось получить доступ к камере.");
+            console.error("Ошибка доступа к камере:", error);
+        }
     }
 }
 
@@ -92,5 +103,7 @@ function scanQRCode() {
 }
 
 // Инициализация приложения
-startCamera();
-scanQRCode();
+document.addEventListener("DOMContentLoaded", () => {
+    startCamera();
+    scanQRCode();
+});
