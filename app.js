@@ -4,7 +4,7 @@ let cameraStream;
 
 document.addEventListener("DOMContentLoaded", () => {
     // Инициализация элементов DOM
-    video = document.getElementById("video");
+    video = document.getElementById("camera"); // Изменено на "camera"
     productName = document.getElementById("productName");
     quantityInput = document.getElementById("quantity");
     addButton = document.getElementById("addButton");
@@ -52,11 +52,20 @@ function handleQRCode(data) {
         const scannedProductName = scannedData.name; // Название товара
 
         // Обновляем интерфейс
-        productName.innerText = `Товар: ${scannedProductName}`;
+        productName.innerText = scannedProductName;
+
+        // Показываем форму
+        document.getElementById("formContainer").style.display = "block";
 
         // Добавляем обработчики для кнопок
         addButton.onclick = () => sendRequest("add_stock", scannedProductID);
         subtractButton.onclick = () => sendRequest("subtract_stock", scannedProductID);
+
+        // Кнопка "Сканировать заново"
+        document.getElementById("rescanButton").onclick = () => {
+            document.getElementById("formContainer").style.display = "none";
+            scanQRCode();
+        };
     } catch (error) {
         alert("Неверный формат QR-кода.");
         console.error("Ошибка обработки QR-кода:", error);
