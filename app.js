@@ -1,11 +1,24 @@
 // Получаем доступ к элементам DOM
-const video = document.getElementById("video");
-const productName = document.getElementById("productName");
-const quantityInput = document.getElementById("quantity");
-const addButton = document.getElementById("addButton");
-const subtractButton = document.getElementById("subtractButton");
-
+let video, productName, quantityInput, addButton, subtractButton;
 let cameraStream;
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Инициализация элементов DOM
+    video = document.getElementById("video");
+    productName = document.getElementById("productName");
+    quantityInput = document.getElementById("quantity");
+    addButton = document.getElementById("addButton");
+    subtractButton = document.getElementById("subtractButton");
+
+    if (!video || !productName || !quantityInput || !addButton || !subtractButton) {
+        console.error("Не все элементы DOM найдены. Проверьте HTML.");
+        return;
+    }
+
+    // Запускаем камеру и сканирование QR-кода
+    startCamera();
+    scanQRCode();
+});
 
 // Запускаем камеру
 async function startCamera() {
@@ -101,9 +114,3 @@ function scanQRCode() {
 
     processFrame();
 }
-
-// Инициализация приложения
-document.addEventListener("DOMContentLoaded", () => {
-    startCamera();
-    scanQRCode();
-});
