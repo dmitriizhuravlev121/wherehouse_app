@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Складской учет</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f9f9f9;
+        }
+        video {
+            border: 2px solid #ccc;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px; /* Ограничение ширины для удобства */
+            height: auto;
+            background-color: #000; /* Чёрный фон для камеры */
+        }
+        h1 {
+            color: #333;
+        }
+        #formContainer {
+            margin-top: 20px;
+        }
+        #productName {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #addButton {
+            background-color: #28a745;
+            color: white;
+        }
+        #subtractButton {
+            background-color: #dc3545;
+            color: white;
+        }
+        #rescanButton {
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        input[type="number"] {
+            padding: 5px;
+            font-size: 16px;
+            width: 100px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Складской учет</h1>
+    <video id="camera" autoplay playsinline></video>
+
+    <div id="formContainer" style="display: none;">
+        <h2>Товар: <span id="productName"></span></h2>
+        <label for="quantity">Количество:</label>
+        <input type="number" id="quantity" min="1" />
+        <div class="button-container">
+            <button id="addButton">Добавить</button>
+            <button id="subtractButton">Списать</button>
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <button id="rescanButton">Сканировать заново</button>
+    </div>
+
+    <!-- Подключение библиотеки jsQR -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+
+    <!-- Подключение вашего скрипта app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
